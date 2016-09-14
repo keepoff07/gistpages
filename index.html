@@ -1,0 +1,24 @@
+<html>
+<head>
+	<title>GistPages</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+	<link rel="icon" href="higecon.png">
+	<script type="text/javascript">
+	$(function() {
+		if(location.search == '') return;
+		$.getJSON("https://api.github.com/gists/"+location.search.substr(1), function(data) {
+			var files = data.files;
+			if(files.title != null) $('title').text(files.title.content);
+			if(files.icon != null) $('link').attr('href', files.icon.content);
+			if(files.body != null) $('body').html(files.body.content);
+		});
+	});
+	</script>
+</head>
+<body>
+<div style="text-align:center;"><h1>GistPages</h1></div>
+</body>
+</html>
